@@ -8,12 +8,18 @@ public class Listener extends Thread{
 	private boolean flag;
 	private BufferedReader in;
 	private Brain brain;
+	private int code;
+	private boolean found;
 	
+	
+
 	public Listener(Brain brain)
 	{
 		this.brain = brain;
 		flag = true;
 		this.in = brain.getIn();
+		code = 0;
+		found = true;
 	}
 	
 	public void run()
@@ -25,7 +31,17 @@ public class Listener extends Thread{
 		{
 			
 				
-				System.out.println(line);
+				if (code == 0) {
+					System.out.println(line);
+				}if(code==1)
+				{
+					for(int i = 0; i < 5; i++)
+					{
+						System.out.println(line);
+					}
+					code = 0;
+					brain.stahp();
+				}
 				line = in.readLine();
 			
 			
@@ -35,6 +51,16 @@ public class Listener extends Thread{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+	
 	
 	public void terminate()
 	{

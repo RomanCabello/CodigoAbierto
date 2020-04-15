@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.SocketException;
+import java.util.ArrayList;
+
+import javax.swing.JTextField;
 
 import org.apache.commons.net.telnet.TelnetClient;
 
@@ -14,12 +17,43 @@ public class Brain {
 	private PrintStream out;
 	private Listener listen;
 	private Writer write;
+	private JTextField server;
+	private ArrayList<String>neighbors = new ArrayList<String>();
+
+	public ArrayList<String> getNeighbors() {
+		return neighbors;
+	}
+	
+	public void nclear()
+	{
+		neighbors.clear();
+	}
+
+	public void addNeighbor(String neighbor) {
+		neighbors.add(neighbor);
+		System.out.println("Neighbor "+ neighbor+" added");
+	}
+
+	public JTextField getServer() {
+		return server;
+	}
+
+	public void setServer(JTextField server) {
+		this.server = server;
+	}
 
 	public Brain() {
 
-		///////////////CONNECT///////////////////
-		String Server = "route-server.he.net";
 
+	}
+	
+	public void codeset(int code)
+	{
+		listen.setCode(code);
+	}
+	
+	public void conection(String Server)
+	{
 		try {
 			TELNET.connect(Server, 23);
 		} catch (SocketException e) {
@@ -29,17 +63,17 @@ public class Brain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		////////////////////////////////////////
-
+		
+		System.out.println("Connected");
+		
 		in = new BufferedReader(new InputStreamReader(TELNET.getInputStream()));
 		out = new PrintStream(TELNET.getOutputStream());
 		listen = new Listener(this);
 		listen.start();
 		
 		write = new Writer(this);
-
+		
 	}
-	
 	
 	
 	
@@ -48,7 +82,10 @@ public class Brain {
 		write.write(value);
 	}
 	
-	
+	public void stahp()
+	{
+		write.write("end");
+	}
 	
 	
 

@@ -3,19 +3,22 @@ package main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SQ implements ActionListener{
+import javax.swing.JTextField;
+
+public class Connect implements ActionListener{
 	private Brain brain;
+	private JTextField server;
 	
-	public SQ(Brain brain)
+	public Connect(Brain brain, JTextField server)
 	{
 		this.brain = brain;
+		this.server = server;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		brain.codeset(1);
-		brain.submit("show bgp ipv4 unicast");
+		brain.conection(server.getText());
 	}
 
 }
