@@ -35,12 +35,8 @@ public class Listener extends Thread{
 					System.out.println(line);
 				}if(code==1)
 				{
-					for(int i = 0; i < 5; i++)
-					{
 						System.out.println(line);
-					}
-					code = 0;
-					brain.stahp();
+
 				}
 				line = in.readLine();
 			

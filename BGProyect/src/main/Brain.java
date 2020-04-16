@@ -75,7 +75,11 @@ public class Brain {
 		
 	}
 	
-	
+	public void nuke()
+	{
+		listen.terminate();
+		submit("exit");
+	}
 	
 	public void submit(String value)
 	{
